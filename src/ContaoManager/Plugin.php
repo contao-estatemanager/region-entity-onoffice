@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace ContaoEstateManager\RegionEntityOnOffice\ContaoManager;
 
 use Contao\CoreBundle\ContaoCoreBundle;
+use ContaoEstateManager\RegionEntity\RegionEntity;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
@@ -25,7 +26,7 @@ class Plugin implements BundlePluginInterface
     {
         return [
             BundleConfig::create(RegionEntityOnOffice::class)
-                ->setLoadAfter([ContaoCoreBundle::class])
+                ->setLoadAfter([ContaoCoreBundle::class, RegionEntity::class])
                 ->setReplace(['region-entity']),
         ];
     }

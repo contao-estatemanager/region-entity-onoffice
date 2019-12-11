@@ -3,6 +3,7 @@
 namespace ContaoEstateManager\RegionEntityOnOffice;
 
 use Symfony\Component\HttpClient\HttpClient;
+use ContaoEstateManager\RegionEntity\RegionsModel;
 
 class Regions extends \Backend
 {
@@ -29,7 +30,7 @@ class Regions extends \Backend
                 {
                     $container = \System::getContainer();
                     \Message::addConfirmation($GLOBALS['TL_LANG']['tl_regions']['importComplete']);
-                    $this->redirect($container->get('router')->generate('contao_backend', array('do'=>'onoffice_regions')));
+                    $this->redirect($container->get('router')->generate('contao_backend', array('do'=>'regions')));
                 }
             }
             else
@@ -108,7 +109,7 @@ class Regions extends \Backend
             }
 
             // Add root from language
-            $root = new OnofficeRegionsModel();
+            $root = new RegionsModel();
 
             $root->title = $lang;
             $root->type = 'root';
@@ -149,7 +150,7 @@ class Regions extends \Backend
                 $record = $record['elements'];
             }
 
-            $root = new OnofficeRegionsModel();
+            $root = new RegionsModel();
 
             $root->title        = $record['name'];
             $root->type         = 'regular';
