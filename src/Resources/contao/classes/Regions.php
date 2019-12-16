@@ -8,6 +8,12 @@ use ContaoEstateManager\RegionEntity\RegionsModel;
 class Regions extends \Backend
 {
     /**
+     * Sortindex
+     * @var int
+     */
+    private $sorting = 0;
+
+    /**
      * Setup onoffice regions import
      *
      * @return string
@@ -115,6 +121,7 @@ class Regions extends \Backend
             $root->type = 'root';
             $root->language = $lang;
             $root->tstamp = time();
+            $root->sorting = $this->sorting++;
             $root->published = 1;
 
             $root->save();
@@ -160,6 +167,7 @@ class Regions extends \Backend
             $root->postalcodes  = empty($record['postalcodes']) ? null : serialize($record['postalcodes']);
             $root->state        = $record['state'];
             $root->country      = $record['country'];
+            $root->sorting      = $this->sorting++;
             $root->tstamp       = time();
             $root->published    = 1;
 
