@@ -5,13 +5,13 @@
  * (c) https://www.oveleon.de/
  */
 
-$GLOBALS['TL_DCA']['tl_regions']['list']['global_operations']['importRegions'] = array(
+$GLOBALS['TL_DCA']['tl_region']['list']['global_operations']['importRegions'] = array(
     'href'                => 'key=importRegions',
     'class'               => 'header_theme_import'
 );
 
 // Add fields
-$GLOBALS['TL_DCA']['tl_regions']['fields']['oid'] = array
+$GLOBALS['TL_DCA']['tl_region']['fields']['oid'] = array
 (
     'exclude'                 => true,
     'search'                  => true,

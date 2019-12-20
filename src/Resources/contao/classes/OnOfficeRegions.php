@@ -3,9 +3,9 @@
 namespace ContaoEstateManager\RegionEntityOnOffice;
 
 use Symfony\Component\HttpClient\HttpClient;
-use ContaoEstateManager\RegionEntity\RegionsModel;
+use ContaoEstateManager\RegionEntity\RegionModel;
 
-class Regions extends \Backend
+class OnOfficeRegions extends \Backend
 {
     /**
      * Sortindex
@@ -35,17 +35,17 @@ class Regions extends \Backend
                 if(!\Message::hasMessages())
                 {
                     $container = \System::getContainer();
-                    \Message::addConfirmation($GLOBALS['TL_LANG']['tl_regions']['importComplete']);
+                    \Message::addConfirmation($GLOBALS['TL_LANG']['tl_region']['importComplete']);
                     $this->redirect($container->get('router')->generate('contao_backend', array('do'=>'regions')));
                 }
             }
             else
             {
-                \Message::addError($GLOBALS['TL_LANG']['tl_regions']['errNoLanguage']);
+                \Message::addError($GLOBALS['TL_LANG']['tl_region']['errNoLanguage']);
             }
         }
 
-        \Message::addInfo($GLOBALS['TL_LANG']['tl_regions']['importConfirm']);
+        \Message::addInfo($GLOBALS['TL_LANG']['tl_region']['importConfirm']);
 
         // Return the form
         return \Message::generate() . '
@@ -58,14 +58,14 @@ class Regions extends \Backend
 <input type="hidden" name="REQUEST_TOKEN" value="' . REQUEST_TOKEN . '">
 <div class="tl_tbox">
 <div class="widget">
-<h3>' . $GLOBALS['TL_LANG']['tl_regions']['language'][0] . '</h3>
+<h3>' . $GLOBALS['TL_LANG']['tl_region']['language'][0] . '</h3>
   <input type="text" name="language" id="language" class="tl_text" required onfocus="Backend.getScrollOffset()">
-  <p class="tl_help tl_tip">' . $GLOBALS['TL_LANG']['tl_regions']['language'][1] . '</p>
+  <p class="tl_help tl_tip">' . $GLOBALS['TL_LANG']['tl_region']['language'][1] . '</p>
 </div></div>
 </div>
 <div class="tl_formbody_submit">
 <div class="tl_submit_container">
-  <button type="submit" name="save" id="save" class="tl_submit" accesskey="s">' . $GLOBALS['TL_LANG']['tl_regions']['importRegions'][0] . '</button>
+  <button type="submit" name="save" id="save" class="tl_submit" accesskey="s">' . $GLOBALS['TL_LANG']['tl_region']['importRegions'][0] . '</button>
 </div>
 </div>
 </form>';
@@ -110,12 +110,12 @@ class Regions extends \Backend
 
             if(!count($arrData['data']['records']))
             {
-                \Message::addError($GLOBALS['TL_LANG']['tl_regions']['emptyRecords']);
+                \Message::addError($GLOBALS['TL_LANG']['tl_region']['emptyRecords']);
                 return;
             }
 
             // Add root from language
-            $root = new RegionsModel();
+            $root = new RegionModel();
 
             $root->title = $lang;
             $root->type = 'root';
@@ -157,7 +157,7 @@ class Regions extends \Backend
                 $record = $record['elements'];
             }
 
-            $root = new RegionsModel();
+            $root = new RegionModel();
 
             $root->title        = $record['name'];
             $root->type         = 'regular';
@@ -188,6 +188,6 @@ class Regions extends \Backend
         $objDatabase = \Database::getInstance();
 
         // Truncate the table
-        $objDatabase->execute("TRUNCATE TABLE tl_regions");
+        $objDatabase->execute("TRUNCATE TABLE tl_region");
     }
 }
