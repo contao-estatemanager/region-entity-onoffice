@@ -27,7 +27,7 @@ class Plugin implements BundlePluginInterface
         return [
             BundleConfig::create(RegionEntityOnOffice::class)
                 ->setLoadAfter([ContaoCoreBundle::class, RegionEntity::class])
-                ->setReplace(['region-entity']),
+                ->setReplace(['region-entity-onoffice']),
         ];
     }
 }
