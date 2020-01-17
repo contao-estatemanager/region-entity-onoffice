@@ -1,6 +1,5 @@
 {
   "name":"contao-estatemanager/region-entity-onoffice",
-  "type":"contao-bundle",
   "description":"Region onOffice import",
   "keywords":["contao","region", "onoffice"],
   "homepage":"https://oveleon.de/",
