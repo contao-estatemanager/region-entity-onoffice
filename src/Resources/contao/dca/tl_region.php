@@ -10,6 +10,9 @@ $GLOBALS['TL_DCA']['tl_region']['list']['global_operations']['importRegions'] = 
     'class'               => 'header_theme_import'
 );
 
+// Set index for oid
+$GLOBALS['TL_DCA']['tl_region']['config']['sql']['keys']['oid'] = 'index';
+
 // Add fields
 $GLOBALS['TL_DCA']['tl_region']['fields']['oid'] = array
 (
