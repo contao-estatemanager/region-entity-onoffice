@@ -87,8 +87,7 @@ class OnOfficeRegions extends \Backend
         $client = HttpClient::create();
         $response = $client->request('GET', \Environment::get('url') . '/api/onoffice/v1/regions', [
             'query' => [
-                'language'  => $lang,
-                'offset' => 14800
+                'language'  => $lang
             ]
         ]);
 
