@@ -2,10 +2,17 @@
 
 namespace ContaoEstateManager\RegionEntityOnOffice;
 
+use Contao\Backend;
+use Contao\Database;
+use Contao\Environment;
+use Contao\Input;
+use Contao\Message;
+use Contao\StringUtil;
+use Contao\System;
 use Symfony\Component\HttpClient\HttpClient;
 use ContaoEstateManager\RegionEntity\RegionModel;
 
-class OnOfficeRegions extends \Backend
+class OnOfficeRegions extends Backend
 {
     /**
      * Sortindex
@@ -26,33 +33,33 @@ class OnOfficeRegions extends \Backend
      */
     public function setupImport()
     {
-        if (\Input::post('FORM_SUBMIT') == 'tl_regions_import')
+        if (Input::post('FORM_SUBMIT') == 'tl_regions_import')
         {
-            if ($lang = trim(\Input::post('language')))
+            if ($lang = trim(Input::post('language')))
             {
                 $this->startImport($lang);
 
-                if(!\Message::hasMessages())
+                if(!Message::hasMessages())
                 {
-                    $container = \System::getContainer();
-                    \Message::addConfirmation($GLOBALS['TL_LANG']['tl_region']['importComplete']);
+                    $container = System::getContainer();
+                    Message::addConfirmation($GLOBALS['TL_LANG']['tl_region']['importComplete']);
                     $this->redirect($container->get('router')->generate('contao_backend', array('do'=>'regions')));
                 }
             }
             else
             {
-                \Message::addError($GLOBALS['TL_LANG']['tl_region']['errNoLanguage']);
+                Message::addError($GLOBALS['TL_LANG']['tl_region']['errNoLanguage']);
             }
         }
 
-        \Message::addInfo($GLOBALS['TL_LANG']['tl_region']['importConfirm']);
+        Message::addInfo($GLOBALS['TL_LANG']['tl_region']['importConfirm']);
 
         // Return the form
-        return \Message::generate() . '
+        return Message::generate() . '
 <div id="tl_buttons">
-<a href="' . ampersand(str_replace('&key=importRegions', '', \Environment::get('request'))) . '" class="header_back" title="' . \StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['backBTTitle']) . '" accesskey="b">' . $GLOBALS['TL_LANG']['MSC']['backBT'] . '</a>
+<a href="' . ampersand(str_replace('&key=importRegions', '', Environment::get('request'))) . '" class="header_back" title="' . StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['backBTTitle']) . '" accesskey="b">' . $GLOBALS['TL_LANG']['MSC']['backBT'] . '</a>
 </div>
-<form action="' . ampersand(\Environment::get('request')) . '" id="tl_theme_import" class="tl_form tl_edit_form" method="post" enctype="multipart/form-data">
+<form action="' . ampersand(Environment::get('request')) . '" id="tl_theme_import" class="tl_form tl_edit_form" method="post" enctype="multipart/form-data">
 <div class="tl_formbody_edit">
 <input type="hidden" name="FORM_SUBMIT" value="tl_regions_import">
 <input type="hidden" name="REQUEST_TOKEN" value="' . REQUEST_TOKEN . '">
@@ -85,7 +92,7 @@ class OnOfficeRegions extends \Backend
     public function startImport($lang)
     {
         $client = HttpClient::create();
-        $response = $client->request('GET', \Environment::get('url') . '/api/onoffice/v1/regions', [
+        $response = $client->request('GET', Environment::get('url') . '/api/onoffice/v1/regions', [
             'query' => [
                 'language'  => $lang
             ]
@@ -103,13 +110,13 @@ class OnOfficeRegions extends \Backend
 
             if($arrData['status']['errorcode'] != 0)
             {
-                \Message::addError($arrData['status']['message']);
+                Message::addError($arrData['status']['message']);
                 return;
             }
 
             if(!count($arrData['data']['records']))
             {
-                \Message::addError($GLOBALS['TL_LANG']['tl_region']['emptyRecords']);
+                Message::addError($GLOBALS['TL_LANG']['tl_region']['emptyRecords']);
                 return;
             }
 
@@ -130,7 +137,7 @@ class OnOfficeRegions extends \Backend
         }
         else
         {
-            \Message::addError($response->getInfo()['error']);
+            Message::addError($response->getInfo()['error']);
         }
     }
 
@@ -184,7 +191,7 @@ class OnOfficeRegions extends \Backend
      */
     private function truncateRegions()
     {
-        $objDatabase = \Database::getInstance();
+        $objDatabase = Database::getInstance();
 
         // Truncate the table
         $objDatabase->execute("TRUNCATE TABLE tl_region");
