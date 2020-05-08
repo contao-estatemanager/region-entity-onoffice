@@ -7,7 +7,4 @@
  */
 
 // Back end modules
-array_insert($GLOBALS['BE_MOD']['system']['regions'], 1, array
-(
-    'importRegions' => array('\\ContaoEstateManager\\RegionEntityOnOffice\\OnOfficeRegions', 'setupImport')
-));
+$GLOBALS['BE_MOD']['system']['regions']['importRegions'] = array('\\ContaoEstateManager\\RegionEntityOnOffice\\OnOfficeRegions', 'setupImport');
