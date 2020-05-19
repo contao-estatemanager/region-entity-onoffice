@@ -5,6 +5,7 @@
  * (c) https://www.oveleon.de/
  */
 
+// Global operations
 $GLOBALS['TL_DCA']['tl_region']['list']['global_operations']['importRegions'] = array(
     'href'                => 'key=importRegions',
     'class'               => 'header_theme_import'
@@ -16,6 +17,7 @@ $GLOBALS['TL_DCA']['tl_region']['config']['sql']['keys']['oid'] = 'index';
 // Add fields
 $GLOBALS['TL_DCA']['tl_region']['fields']['oid'] = array
 (
+    'label'                   => &$GLOBALS['TL_LANG']['tl_region']['oid'],
     'exclude'                 => true,
     'search'                  => true,
     'sorting'                 => true,
